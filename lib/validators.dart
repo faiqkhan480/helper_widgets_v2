@@ -94,9 +94,9 @@ class Validators {
     };
   }
 
-  static String? Function(String) validatePass(
+  static String? Function(String?)? validatePass(
       {int minLength = 6, int maxlength = 255}) {
-    return (String value) {
+    return (String? value) {
       if (value == null || value.isEmpty || value.trim().isEmpty) {
         return 'Password is required';
       } else if (value.length < minLength || value.length > maxlength) {
