@@ -2,26 +2,26 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 
 class Validators {
-  static String? validateSimpleString(String value,
-      {String message = "Field is required"}) {
+  static String? validateSimpleString(String? value,
+      {String? message = "Field is required"}) {
     return value == null || value.trim().isEmpty ? message : null;
   }
 
-  static String? validateSimpleEmail(String value,
-      {String message = "Email is required"}) {
-    return !RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)
+  static String? validateSimpleEmail(String? value,
+      {String? message = "Email is required"}) {
+    return !RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value!)
         ? message
         : null;
   }
 
-  static String? validateSimplePhone(String value,
-      {String message = "Phone number is required"}) {
-    return !RegExp(r"^[0-9]{11}").hasMatch(value) ? message : null;
+  static String? validateSimplePhone(String? value,
+      {String? message = "Phone number is required"}) {
+    return !RegExp(r"^[0-9]{11}").hasMatch(value!) ? message : null;
   }
 
-  static String? Function(String) validateAlpha([String? error]) {
-    return (String value) {
-      if (value.isEmpty) {
+  static String? Function(String?)? validateAlpha([String? error]) {
+    return (String? value) {
+      if (value == null || value.isEmpty) {
         return error ?? 'Name is required.';
       }
       final RegExp nameExp = RegExp(r'^[A-Za-z ]+$');
@@ -32,8 +32,8 @@ class Validators {
     };
   }
 
-  static String? Function(String) validateDouble([String? error]) {
-    return (String value) {
+  static String? Function(String?)? validateDouble([String? error]) {
+    return (String? value) {
       if (value == null || value.isEmpty) {
         return error ?? 'Field is required.';
       }
@@ -44,8 +44,8 @@ class Validators {
     };
   }
 
-  static String? Function(String) validateInt([String? error]) {
-    return (String value) {
+  static String? Function(String)? validateInt([String? error]) {
+    return (String? value) {
       if (value == null || value.isEmpty) {
         return error ?? 'Field is required.';
       }
@@ -56,9 +56,9 @@ class Validators {
     };
   }
 
-  static String? Function(String) validateEmail([String? error]) {
-    return (String value) {
-      if (value.isEmpty) {
+  static String? Function(String?)? validateEmail([String? error]) {
+    return (String? value) {
+      if (value == null || value.isEmpty) {
         return error ?? 'Email is required.';
       }
       if (!value.contains('@')) {
@@ -68,9 +68,9 @@ class Validators {
     };
   }
 
-  static String? Function(String) validatePhone([String? error]) {
-    return (String value) {
-      if (value.isEmpty) {
+  static String? Function(String?)? validatePhone([String? error]) {
+    return (String? value) {
+      if (value == null || value.isEmpty) {
         return error ?? 'Phone number is required.';
       }
       if (!RegExp(r'^\d+?$').hasMatch(value) ||
@@ -85,8 +85,8 @@ class Validators {
     };
   }
 
-  static String? Function(String) validateString([String? error]) {
-    return (String value) {
+  static String? Function(String?)? validateString([String? error]) {
+    return (String? value) {
       if (value == null || value.isEmpty || value.trim().isEmpty) {
         return error ?? 'Field is required.';
       }
@@ -95,12 +95,12 @@ class Validators {
   }
 
   static String? Function(String?)? validatePass(
-      {int minLength = 6, int maxlength = 255}) {
+      {int minLength = 6, int maxLength = 255}) {
     return (String? value) {
       if (value == null || value.isEmpty || value.trim().isEmpty) {
         return 'Password is required';
-      } else if (value.length < minLength || value.length > maxlength) {
-        return 'Password must be $minLength-$maxlength characters';
+      } else if (value.length < minLength || value.length > maxLength) {
+        return 'Password must be $minLength-$maxLength characters';
       } else if (!_hasSpecialCharacter(value)) {
         return 'Password must contain atleast one special character';
       }
@@ -108,9 +108,9 @@ class Validators {
     };
   }
 
-  static String? Function(String) validatePlainPass(
+  static String? Function(String?)? validatePlainPass(
       {int minLength = 6, int maxlength = 255}) {
-    return (String value) {
+    return (String? value) {
       if (value == null || value.isEmpty || value.trim().isEmpty) {
         return 'Password is required';
       } else if (value.length < minLength || value.length > maxlength) {
@@ -120,8 +120,8 @@ class Validators {
     };
   }
 
-  static String? Function(File) validateFile([String? error]) {
-    return (File file) {
+  static String? Function(File?)? validateFile([String? error]) {
+    return (File? file) {
       if (file == null || file.path.isEmpty) {
         return error ?? 'Invalid File.';
       }
@@ -129,11 +129,11 @@ class Validators {
     };
   }
 
-  static String? Function(String) validateAmount([String? error]) {
-    return (String value) {
-      value = value.replaceAll(",", "");
+  static String? Function(String?)? validateAmount([String? error]) {
+    return (String? value) {
+      value = value?.replaceAll(",", "");
 
-      if (value.isEmpty) {
+      if (value!.isEmpty) {
         return error ?? 'Amount is required.';
       }
       if (double.tryParse(value) == null) {
@@ -149,21 +149,21 @@ class Validators {
     };
   }
 
-  static String? Function(String) validateDiffChange(
+  static String? Function(String?)? validateDiffChange(
     FormFieldState<String> field, [
     String? error,
   ]) {
-    return (String value) {
-      if (field?.value != value) {
+    return (String? value) {
+      if (field.value != value) {
         return error ?? 'Values don\'t match';
       }
       return null;
     };
   }
 
-  static String? Function(String) validatePassword(
+  static String? Function(String?)? validatePassword(
       FormFieldState<String> passwordField) {
-    return (String value) {
+    return (String? value) {
       if (passwordField == null) {
         return 'Please enter a password.';
       }
@@ -173,7 +173,7 @@ class Validators {
       return validateDiffChange(
         passwordField,
         'The passwords don\'t match',
-      )(value);
+      )!(value);
     };
   }
 
