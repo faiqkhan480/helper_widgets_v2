@@ -44,7 +44,7 @@ class Validators {
     };
   }
 
-  static String? Function(String)? validateInt([String? error]) {
+  static String? Function(String?)? validateInt([String? error]) {
     return (String? value) {
       if (value == null || value.isEmpty) {
         return error ?? 'Field is required.';
