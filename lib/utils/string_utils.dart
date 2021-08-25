@@ -167,7 +167,7 @@ String formatMoney(var amount, {bool showDecimal = true, var currency = '₦'}) 
       money = double.parse(double.parse("$amount").toStringAsFixed(2));
     }
     final decimal = '$money'.substring('$money'.lastIndexOf('.'));
-    if (decimal.isEmpty) {
+    if (decimal.isEmpty || decimal.length == 1) {
       return "$currency${formatter.format(money)}${showDecimal ? '.00' : ''}";
     }
 
