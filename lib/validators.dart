@@ -108,6 +108,22 @@ class Validators {
     };
   }
 
+  static String? Function(String?)? validatePin(
+      {int minLength = 6, int maxLength = 255}) {
+    return (String? value) {
+      if (value == null || value.isEmpty || value.trim().isEmpty) {
+        return 'Pin is required';
+      } 
+      else if (int.tryParse(value) != null) {
+        return 'Pin must be numeric characters';
+      } 
+      else if (value.length < minLength || value.length > maxLength) {
+        return 'Pin must be $minLength-$maxLength characters';
+      } 
+      return null;
+    };
+  }
+
   static String? Function(String?)? validatePlainPass(
       {int minLength = 6, int maxlength = 255}) {
     return (String? value) {
