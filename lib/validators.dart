@@ -109,16 +109,16 @@ class Validators {
   }
 
   static String? Function(String?)? validatePin(
-      {int minLength = 6, int maxLength = 255}) {
+      {int pinLength = 4,}) {
     return (String? value) {
       if (value == null || value.isEmpty || value.trim().isEmpty) {
         return 'Pin is required';
       } 
-      else if (int.tryParse(value) != null) {
+      else if (int.tryParse(value) == null) {
         return 'Pin must be numeric characters';
       } 
-      else if (value.length < minLength || value.length > maxLength) {
-        return 'Pin must be $minLength-$maxLength characters';
+      else if (value.length < pinLength || value.length > pinLength) {
+        return 'Pin must be $pinLength characters';
       } 
       return null;
     };
